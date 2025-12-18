@@ -3,9 +3,13 @@ using UnityEngine;
 public class StonePickup : MonoBehaviour
 {
     public float pickupRange = 2f;
-    public int maxStoneCount = 1;
 
-    int currentStoneCount = 0;
+    StoneInventory inventory;
+
+    void Start()
+    {
+        inventory = GetComponent<StoneInventory>();
+    }
 
     void Update()
     {
@@ -17,7 +21,7 @@ public class StonePickup : MonoBehaviour
 
     void TryPickupStone()
     {
-        if (currentStoneCount >= maxStoneCount) return;
+        if (!inventory.CanAddStone()) return;
 
         Collider[] hits = Physics.OverlapSphere(
             transform.position,
@@ -28,26 +32,10 @@ public class StonePickup : MonoBehaviour
         {
             if (hit.CompareTag("Stone"))
             {
-                Pickup(hit.gameObject);
+                inventory.AddStone();
+                Destroy(hit.gameObject);
                 break;
             }
         }
-    }
-
-    void Pickup(GameObject stone)
-    {
-        currentStoneCount++;
-
-        // Ç–Ç∆Ç‹Ç∏è¡Ç∑ÇæÇØ
-        Destroy(stone);
-
-        Debug.Log("êŒÇèEÇ¡ÇΩÅI");
-    }
-
-    // èEÇ¶ÇÈîÕàÕÇâ¬éãâª
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, pickupRange);
     }
 }
