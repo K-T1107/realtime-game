@@ -1,0 +1,18 @@
+@startuml
+actor ClieantA as A
+actor ClieantB as B
+actor ClieantC as C
+participant "WebSocket Server\n(PHP / Ratchet)" as S
+
+== Cさんが退室 ==
+A -> S : 退室通知 (leave)
+S -> A : 通知「Cさんが退室しました」
+S -> B : 通知「Cさんが退室しました」
+S --> B : 接続終了
+
+== Bさんが退室 ==
+A -> S : 退室通知 (leave)
+S -> A : 通知「Bさんが退室しました」
+S --> B : 接続終了
+
+@enduml

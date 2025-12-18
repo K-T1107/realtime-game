@@ -1,0 +1,23 @@
+@startuml
+actor ClieantA as A
+actor ClieantB as B
+actor ClieantC as C
+participant "WebSocket Server\n(PHP / Ratchet)" as S
+
+== Aさんが入室 ==
+A -> S : 接続要求 (join)
+S --> A : 現在の参加者リスト [A]
+
+== Bさんが入室 ==
+A -> S : 接続要求 (join)
+S -> A : 通知「Bさんが入室しました」
+S --> A : 現在の参加者リスト [A]
+
+== Cさんが入室 ==
+A -> S : 接続要求 (join)
+S -> A : 通知「Cさんが入室しました」
+S -> B : 通知「Cさんが入室しました」
+S --> A : 現在の参加者リスト [A]
+S --> B : 現在の参加者リスト [B]
+
+@enduml
