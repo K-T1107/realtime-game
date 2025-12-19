@@ -32,7 +32,7 @@ public class StoneThrower : MonoBehaviour
         );
 
         Rigidbody rb = stone.GetComponent<Rigidbody>();
-        rb.AddForce(transform.forward * throwPower, ForceMode.Impulse);
+        rb.AddForce(throwPoint.forward * throwPower, ForceMode.Impulse);
 
         inventory.UseStone();
     }
