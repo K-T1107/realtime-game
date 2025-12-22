@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6873372200801749116}
   - component: {fileID: 6837615119510427598}
   - component: {fileID: 1340407101397346735}
+  - component: {fileID: 5990538267144444765}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Stone
@@ -136,3 +137,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5990538267144444765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6236191260590714088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29838ab8214530b4d882fa0915840013, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bouncePower: 5
+  speedDecay: 0.8
