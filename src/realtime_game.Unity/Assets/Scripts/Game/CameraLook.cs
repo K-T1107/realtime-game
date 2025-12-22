@@ -2,22 +2,20 @@ using UnityEngine;
 
 public class CameraLook : MonoBehaviour
 {
-    public Transform cameraRoot;
-    public float sensitivity = 2f;
-
-    // ÇŸÇ⁄ê^è„ÅEê^â∫Ç‹Ç≈OK
-    public float minY = -89f;
-    public float maxY = 89f;
+    public static float sensitivity = 2f;
+    public bool canLook = true;
 
     float xRotation = 0f;
 
     void Update()
     {
-        float mouseY = Input.GetAxis("Mouse Y");
+        if (!canLook) return;
 
-        xRotation -= mouseY * sensitivity;
-        xRotation = Mathf.Clamp(xRotation, minY, maxY);
+        float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
 
-        cameraRoot.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        xRotation -= mouseY;
+        xRotation = Mathf.Clamp(xRotation, -89f, 89f);
+
+        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
     }
 }
