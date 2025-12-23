@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class Stone : MonoBehaviour
 {
-    public float bouncePower = 5f;
+    public float bouncePower = 4f;
     public float speedDecay = 0.8f;
+    public int maxBounceCount = 7;
+    public float minSpeed = 2.5f;
 
     int bounceCount = 0;
     Rigidbody rb;
@@ -15,30 +17,42 @@ public class Stone : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        // ���ɓ���������
-        if (collision.gameObject.CompareTag("Water"))
-        {
-            // �������Ȃ疳���i���ށj
-            if (rb.linearVelocity.y < -1f)
-                return;
+        if (!collision.gameObject.CompareTag("Water"))
+            return;
 
-            Bounce();
-        }
+        // 最大回数
+        if (bounceCount >= maxBounceCount)
+            Sink();
+
+        // 速度不足
+        if (rb.linearVelocity.magnitude < minSpeed)
+            Sink();
+
+        // 落下しすぎてたら沈む
+        if (rb.linearVelocity.y < -1.0f)
+            Sink();
+
+        Bounce();
     }
 
     void Bounce()
     {
         Vector3 vel = rb.linearVelocity;
 
-        // ������ɒ��˂�����
-        vel.y = bouncePower;
-
-        // ��������
-        vel *= speedDecay;
+        vel.y = bouncePower;       // 上に跳ねる
+        vel *= speedDecay;         // 減速
 
         rb.linearVelocity = vel;
+        rb.angularVelocity = Vector3.zero;
 
         bounceCount++;
-        Debug.Log("Bounce Count: " + bounceCount);
+        Debug.Log("Bounce: " + bounceCount);
+    }
+
+    void Sink()
+    {
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.isKinematic = true; // 完全停止
     }
 }
