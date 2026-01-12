@@ -9,7 +9,6 @@ public class PlayerLook : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X") * sensitivity;
 
         if (Mathf.Abs(mouseX) > 0.01f)
-            Debug.Log("MouseX: " + mouseX);
 
         transform.Rotate(Vector3.up * mouseX);
     }

@@ -20,12 +20,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // 地面にいるか
         bool isGrounded = controller.isGrounded;
 
         if (isGrounded && velocity.y < 0)
         {
-            velocity.y = -2f; // 地面に吸い付かせる
+            velocity.y = -2f;
         }
 
         // --- 移動 ---
@@ -35,7 +34,7 @@ public class PlayerController : MonoBehaviour
         controller.Move(move * moveSpeed * Time.deltaTime);
 
         // --- ジャンプ ---
-        if (isGrounded && Input.GetButtonDown("Jump")) // Spaceキー
+        if (isGrounded && Input.GetButtonDown("Jump"))
         {
             velocity.y = jumpPower;
         }
